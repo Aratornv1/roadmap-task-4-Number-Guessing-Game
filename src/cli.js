@@ -4,9 +4,9 @@ import { UserError } from './game.js';
 import { runSession } from './play.js';
 import { loadScores, saveScores } from './storage.js';
 
-// Рядки вводу читаємо по одному через асинхронний ітератор: так працює і термінал, і `echo 5 | node ...`.
-const rl = createInterface({ input: process.stdin });
-const lines = rl[Symbol.asyncIterator]();
+
+const rl = createInterface({ input: process.stdin });//create readline interface to read user input from stdin
+const lines = rl[Symbol.asyncIterator](); // create an async iterator to read lines from stdin
 
 async function ask(prompt) {
   process.stdout.write(prompt);
@@ -16,7 +16,7 @@ async function ask(prompt) {
     return null;
   }
   return value.trim();
-}
+}// ask user for input and return the trimmed value, if no input return null
 
 try {
   await runSession({
@@ -30,4 +30,4 @@ try {
   process.exitCode = 1;
 } finally {
   rl.close();
-}
+}// run the game session and handle any errors, close the readline interface when done
